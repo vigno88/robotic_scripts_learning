@@ -1,0 +1,20 @@
+This script will take a configuration as written in a text file and will return
+its DoF.
+
+TODO
+
+  Establish the graph format
+  Make the scanner/parser of the graph
+  Compute the result
+
+
+
+Each line is a joint with 2 links
+
+List of supported joint:
+  - R (revolute, 1 dof)
+  - P (prismatic, 1 dof)
+  - H (helical, 1 dof)
+  - C (cylindrical, 2 dof)
+  - U (universal, 2 dof)
+  - S (spherical, 3 dof)
