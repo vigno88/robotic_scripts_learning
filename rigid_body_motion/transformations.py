@@ -120,5 +120,29 @@ def matrix_exp_6(S_m):
 
 # Compute matrix logarithm of the homogeneous transformation matrix T
 def matrix_log_6(T):
+  R,p = T_to_Rp(T)
+  omega,v,theta = (np.zeros((3)),np.zeros((3)), 0)
+  if R == np.identity(3):
+    theta = np.linalg.norm(p)
+    v = p/theta
+  else:
+    # Compute omega and theta
+    omega_theta_m = matrix_log_3(R)
+    omega_theta_v = so3_to_vec(omega_theta_m)
+    theta = np.linalg.norm(omega_theta_v)
+    omega = omega_theta_v/theta
 
+    # Compute v
+    omega_m = omega_theta_m/theta
+    G_inv = ((1.0/theta)*np.identity(3)) - (0.5*omega_m) +
+      ((1.0/theta)-(0.5*(1.0/np.tanh(theta/2.0))))*np.square(omega_m)
+    v = (G_inv @ p.T).T
+  screw_axis = np.concatenate(omega_theta_v, v*theta, axis=1)
+  return screw_axis_to_mat(screw_axis)
+
+
+    
+
+
+    
 
